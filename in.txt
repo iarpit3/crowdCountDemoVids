@@ -1,0 +1,48 @@
+
+
+Hi Abhishek, Allahbaksh,
+
+
+
+
+ 
+
+
+
+
+We have initiated a new Deep Learning Linux 14 p2.8xlarge Amazon ec2 instance.  Attached is the *.pem file to connect to the instance. 
+
+
+
+
+The ip address of the instance is 34.208.106.39 and URL http://ec2-34-208-106-39.us-west-2.compute.amazonaws.com/ 
+
+
+
+
+ 
+
+
+
+
+Place the pem file in the root folder and using mac Terminal use the following commands to access (we have tested, it works):
+
+
+
+
+chmod 400 Infosysp28xlarge.pem
+
+
+
+
+ssh -i Infosysp28xlarge.pem ubuntu@ec2-34-208-106-39.us-west-2.compute.amazonaws.com
+
+
+
+
+  
+
+
+
+
+Let me know if you need 
