@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Plug-in Development</title>
+
+<link href="../styles/milestone1.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="../styles/print.css" rel="stylesheet" media="print" type="text/css" />
+<script type="text/javascript" src="../jscript/milestone.js"></script>
+
+<style type="text/css">
+<!--
+p.MsoNormal {
+margin:0pt;
+margin-bottom:.0001pt;
+font-size:10.0pt;
+font-family:"Verdana","sans-serif";
+}
+    .style1
+    {
+        background-color: #FF9900;
+    }
+-->
+</style>
+</head><body class="oneColElsCtrHdr">
+
+<div id="container">
+  <div id="header">
+    <script language="JavaScript">        ABCcrumbs("../", new Array("Plug-in Integration,../content_1.html","Getting Started,./gettingstarted_index.html"));</script>
+
+<p />
+  <h1 class="Heading1">Getting Started</h1>
+         <h2 class="Heading2">Plug-in Development</h2>
+        <h2 class="Heading2">Prerequisites</h2>
+        <p>We expect you use Visual Studio 2015 or 2017. Most samples
+          have a solution file and are targeting .Net 4.0 or .Net 4.5.1.</p>
+        <p>A licensed version of an XProtect Video Management System
+          should be installed on the machine that you use for debugging.
+          Similarly, if you are developing a plug-in for the XProtect
+          Smart Client, you should install the XProtect Smart Client.
+          You can install the standard released products. There are no
+          requirements for debug versions or special components.</p>
+        <p>The latest version of Milestone MIP SDK should be installed
+          (or copied) to gain access to the sample source code, as well
+          as the VideoOS.Platform.dll. </p>
+        <p class="Heading2">Process</p>
+        <p>The following gets you started with the C# development for
+          Milestone MIP plug-in:</p>
+        <table width="663" cellspacing="1" cellpadding="1" border="0">
+          <tbody>
+            <tr>
+              <td width="30">1.</td>
+              <td colspan="2">Install the latest MIP SDK on your machine.</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;2.</td>
+              <td colspan="2">Install XProtect VMS. The following products can
+                be used:<em><strong><br>
+                  </strong></em></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td width="20">&nbsp;</td>
+              <td width="603">
+                <ul>
+                  <li>XProtect Corporate (c-code)</li>
+                  <li>XProtect Expert (c-code)</li>
+                  <li>XProtect Enterprise (limited availability)
+                    (e-code)</li>
+                  <li>XProtect Professional+ (c-code)</li>
+                  <li>Xprotect Professional (e-code)</li>
+                  <li>XProtect Express+ (c-code)</li>
+                  <li>XProtect Express (e-code)</li>
+                  <li>XProtect Essential+ (c-code)</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td colspan="2">It is recommended to never use versions
+                older than what is supported. Please check the
+                Milestone Product Lifecycle page at
+                https://www.milestonesys.com/support/resources/product-lifecycle/<br>
+                <strong></strong><em><strong></strong></em></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td width="20">&nbsp;</td>
+              <td width="603"> <br>
+              </td>
+            </tr>
+            <tr>
+              <td>4.</td>
+              <td colspan="2">Install XProtect Smart Client.</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+              <td>5.</td>
+              <td colspan="2">
+                <p>Create a new project in Visual Studio and select the
+                  <em>MIPPlugin.</em></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>In the following example the project name <em>ABC</em> is used.
+          When you enter <em>ABC</em>, the following solution is
+          created:</p>
+        <p><img src="../images/solution_explorer.PNG" alt="Solution
+            Explorer" width="365" height="503"></p>
+        <p>All class names are prefixed with the project name, and new
+          GUIDs are generated. You now have a set of files as well as a
+          project and a solution file that can compile.</p>
+        <p>To run the plug-in, copy the file <em>ABC.DLL</em> and the <em>plugin.def</em>
+          file to the shared plug-in folder on the machine ( <em>%PROGRAMFILES%\Milestone\MIPPlugins\"your-plug-in-name"\</em> )</p>
+        <p>All MIP-enabled applications will load plug-ins from this
+          place, unless the plug-in is found in the application-specific
+          MIPPlugins folder first -- see the following section.</p>
+        <h2 class="Heading2">Plug-in Location</h2>
+        <p>The folders used for loading the plug-ins are named <em>MIPPlugins</em>.
+          The folders are placed as follows:</p>
+        <p>For 32-bit applications (Management Application (e-code) and
+          Smart Client installed as 32-bit):</p>
+        <ul>
+          <li>Executing folder of the starting application:
+            <ul>
+              <li>".\MIPPlugins".</li>
+			  </ul></li>
+            <li>A common place that all Milestone and OEM applications load from:
+            <ul>
+              <li>C:\Program Files (x86)\VideoOS\MIPPlugins</li>
+            </ul>
+          </li>
+          <li>A common place that all Milestone applications load from:
+            <ul>
+              <li>C:\Program Files (x86)\Milestone\MIPPlugins</li>
+            </ul>
+          </li>
+        </ul>
+        <p>For 64-bit applications (Event Server, Management Client and
+          Smart Client installed as 64-bit):</p>
+        <ul>
+          <li>Executing folder of the starting application:
+            <ul>
+              <li>".\MIPPlugins".</li>
+			  </ul></li>
+            <li>A common place that all Milestone and OEM applications load from:
+            <ul>
+              <li>C:\Program Files\VideoOS\MIPPlugins</li>
+            </ul>
+          </li>
+          <li>A common place that all Milestone applications load from:
+            <ul>
+              <li>C:\Program Files\Milestone\MIPPlugins</li>
+            </ul>
+          </li>
+        </ul>
+        <p>From MIPSDK 2014, the 'VideoOS' is used as an alternative
+          company name to support future OEM versions of any XProtect
+          products. We expect XProtect products to be fully OEM'ed in
+          the near future and that the installers will therefore be
+          located under other company names in %programfiles%".</p>
+        <p>If you like to be supported by these OEM versions, it may be
+          a good idea to place your plug-in under the
+          "VideoOS\MIPPlugins" folder.</p>
+        <p>For backwards compatibility, we will continue to load plug-ins
+          from "Milestone\MIPPlugins" as well.</p>
+        <p>&nbsp;</p>
+        <p>For the XProtect Smart Client, the folder structure looks
+          like this::</p>
+        <p><img src="../images/plug-in_location_1.JPG" alt="Plug-in
+            Location" width="777" height="238"></p>
+        <p>For the XProtect Corporate Management Client, the XProtect
+          Enterprise Management Application, and the XProtect Event
+          Server, you can create a similar folder named <em>MIPPlugins</em>
+          with subfolders for each plug-in.</p>
+        <p>The plugin.def file defines which DLL to load. This is done
+          to avoid loading irrelevant DLLs. </p>
+        <p><img src="../images/plug-in_location_3.JPG" alt="Plug-in DLL"></p>
+        <p>The 'load' xmlnode was introduced with MIP v3.0, and defines
+          where the plug-in should be loaded. If the xmlnode is not
+          defined, the plug-in will be loaded in all applications.</p>
+        <p>The innertext of the attribute 'env' contains the
+          EnvironmentType enumerations as defined in the
+          VideoOS.Platform.EnvironmentManager. Currently, these value are
+          understood:</p>
+        <ul>
+          <li>SmartClient</li>
+          <li>Administration</li>
+          <li>Service</li>
+        </ul>
+        <p>The order of loading is:</p>
+        <ul>
+          <li>First, the plug-ins that are located in the
+            application-specific folders are loaded.</li>
+          <li>Then the plug-ins in the shared folder are loaded.</li>
+        </ul>
+        <p>If duplicates exist, the application-specific plug-in become
+          the active one.<br>
+        </p>
+		 <h2 class="Heading2">Verify that the plug-in is loaded</h2>
+<p>It can be verified that a Smart Client plug-in is loaded by
+using the Help About dialog. You find this in the top
+right-hand corner of the Smart Client: the icon with a
+question mark. Click on the question mark icon, and in the
+drop-down menu select About. The dialog looks like this:</p>
+<p>
+<img src="../images/SC2.png" title="Smart Client Help - About
+dialog" alt="Smart Client Help - About dialog" width="320"
+height="310">
+</p>
+<p>To verify the plug-in is loaded in the Management Client,
+open the Help -&gt; About dialog:</p>
+<p>
+<img src="../images/MCdebug1.PNG" title="Management Client
+Help - About dialog" alt="Management Client Help - About
+dialog" width="320" height="255"><br>
+</p>
+<p>To find if a plug-in is loaded, you must find the last time
+the Event Server was started, or alternatively, make an Event
+Server restart, and then after the restart, examine today’s log.</p>
+<p>
+In the MIP logs, look for the “PluginLoader” information:</p>
+<p>
+<img src="../images/ESdebug2.PNG" title="log viewer" alt="MIP
+log viewed in the Event Server Manager log viewer."
+width="500" height="164"><br>
+</p>
+<p>&nbsp;</p>
+	<p>&nbsp;</p>		
+		
+        <h1 class="Heading1">Debug and Test</h1>
+        <h2 class="Heading2">Debug logging<br>
+        </h2>
+        <p>By using the VideoOS.Platform.EnvironmentManager.Log method
+          you can output debugging text to the MIP log. An example of
+          this is:</p>
+        <code>EnvironmentManager.Instance.Log(true, "SCLicenseSample",
+          ex.Message);</code>
+        <p>If you need general information about when your plug-in is
+          loaded and similar, use this method (but remember to remove it before widely distributing the plug-in, because it will
+          affect all plug-ins running in the Smart Client): </p>
+        <code>EnvironmentManager.Instance.TraceFunctionCalls = true;</code>
+        <p>When logging is used, it is important to note that the Smart
+          Client logging per default is turned off.<br>
+        </p>
+        <h3 class="Heading3">Enable logging in the Smart Client</h3>
+        <p>The instructions here come in two parts: one uses a tool
+          from a Milestone knowledge base article, and another which
+          requires no special tool but a simple editor.</p>
+          <p>The tool will help you gather the logs quickly and
+          effectively. But, if you need a setup where logs are
+          accumulated over time and across multiple restarts of Smart
+          Client and the Windows OS, the manual method might be
+          preferable.</p>
+          <p>Note, these instructions are, with very few changes, a copy of
+          knowledge base article <a
+href="https://force.milestonesys.com/support/articles/en_US/How_To/Enable-XProtect-Smart-Client-logging-automatically-and-manually">1227</a>.</p>
+        <h3 class="Heading3">How to automatically enable Smart Client
+          logging (method #1): </h3>
+        <p>Download <a
+            href="http://download.milestonesys.com/MTSKB/S00744/SCLogCollector.zip">SCLogCollector.zip</a>
+          and un-ZIP it.</p>
+          <p>Run the SCLogCollector.exe app. The SCLogManager window
+          opens. Enable the MIP Logger option for issues on plug-ins,
+          then press Start.</p>
+        <img src="../images/SCdebug1.PNG" alt="SCLogCollector">
+        <p>After reproducing the issue, close XProtect Smart Client and
+          a notification should appear indicating that the log file has
+          been created.</p>
+        <h3 class="Heading3">Manually enable Smart Client logging (method
+          #2):</h3>
+        <p>Go to<br>
+          C:\Program Files\Milestone\XProtect Smart
+          Client\Client.exe.config</p>
+          <p>Open the Client.exe.config file with Notepad.</p>
+          <p>Remove the &lt;!-- and the --&gt; for the logging you want to
+          enable.</p>
+          <img src="../images/SCdebug7.PNG" alt="Editing the
+            Client.exe.config in Notepad" title="Editing the
+            Client.exe.config in Notepad">&nbsp;
+          <p>It is very important to change the client.exe.config file
+          back to its original state when the investigation with logging is done, because some of
+          the logging is very large, and if left unmonitored it can fill the
+          hard drive. </p>
+        <h2 class="Heading2">Special note for Event Server</h2>
+        <p>To enable debug logging from the Event Server, change the
+        VideoOS.Event.Server.Exe.Config file, located in C:\Program
+        Files\Milestone\XProtect Event Server:</p>
+        <p><code> &nbsp;&nbsp;&nbsp; &lt;!-- <br>
+            &nbsp;&nbsp;&nbsp; Set MIP log level to either "debug",
+            "info", or "error".<br>
+            &nbsp;&nbsp;&nbsp; Set the "archive" attribute to change the
+            MIP log path. Default path is "MIPLogs"<br>
+            &nbsp;&nbsp;&nbsp; under the event server log directory. <br>
+            &nbsp;&nbsp;&nbsp; --&gt;<br>
+            &nbsp;&nbsp;&nbsp; &lt;MIPLoggerSettings level="info" /&gt;<br>
+          </code></p>
+        <p>Change the level from "info" to "debug" to enable debug relevant
+        messages in the log. Then restart the Event Server. <br>
+        </p>
+        <p>
+        When developing plug-ins for the <strong>Access Control module</strong>,
+        modify this part in the above file:</p>
+        <p> <span style="font-size: 9.5pt; font-family: Consolas;
+            color: blue; background: white; mso-highlight: white;
+            mso-ansi-language: EN-US" lang="EN-US">&nbsp;&nbsp;&nbsp;
+            &lt;!--</span><span style="font-size: 9.5pt; font-family:
+            Consolas; color: green; background: white; mso-highlight:
+            white; mso-ansi-language: EN-US" lang="EN-US"> The access
+            control trace level. Traces all calls and events between the
+            Event Server and the plugin. The traces is found in the MIP
+            log files. Valid values are: 'Disabled', 'Simple' and
+            'Detailed'. </span><span style="font-size: 9.5pt;
+            font-family: Consolas; color: blue; background: white;
+            mso-highlight: white; mso-ansi-language: EN-US" lang="EN-US">
+            --&gt;</span><span style="font-size: 9.5pt; font-family:
+            Consolas; color: black; background: white; mso-highlight:
+            white; mso-ansi-language: EN-US" lang="EN-US"><o:p></o:p></span></p>
+        <p> <span style="font-size: 9.5pt; font-family: Consolas;
+            color: blue; background: white; mso-highlight: white;
+            mso-ansi-language: EN-US" lang="EN-US">&nbsp;&nbsp;&nbsp;
+            &lt;</span><span style="font-size: 9.5pt; font-family:
+            Consolas; color: #A31515; background: white; mso-highlight:
+            white; mso-ansi-language: EN-US" lang="EN-US">add</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color: blue;
+            background: white; mso-highlight: white; mso-ansi-language:
+            EN-US" lang="EN-US"> </span><span style="font-size: 9.5pt;
+            font-family: Consolas; color: red; background: white;
+            mso-highlight: white; mso-ansi-language: EN-US" lang="EN-US">
+            key</span><span style="font-size: 9.5pt; font-family:
+            Consolas; color: blue; background: white; mso-highlight:
+            white; mso-ansi-language: EN-US" lang="EN-US">=</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color:
+            black; background: white; mso-highlight: white;
+            mso-ansi-language: EN-US" lang="EN-US">"</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color: blue;
+            background: white; mso-highlight: white; mso-ansi-language:
+            EN-US" lang="EN-US">AccessControlTraceLevel</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color:
+            black; background: white; mso-highlight: white;
+            mso-ansi-language: EN-US" lang="EN-US">"</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color: blue;
+            background: white; mso-highlight: white; mso-ansi-language:
+            EN-US" lang="EN-US"> </span><span style="font-size: 9.5pt;
+            font-family: Consolas; color: red; background: white;
+            mso-highlight: white; mso-ansi-language: EN-US" lang="EN-US">
+            value</span><span style="font-size: 9.5pt; font-family:
+            Consolas; color: blue; background: white; mso-highlight:
+            white; mso-ansi-language: EN-US" lang="EN-US">=</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color:
+            black; background: white; mso-highlight: white;
+            mso-ansi-language: EN-US" lang="EN-US">"</span><span
+            style="font-size: 9.5pt; font-family: Consolas; color: blue;
+            background: white; mso-highlight: white; mso-ansi-language:
+            EN-US" lang="EN-US">Disabled</span><span style="font-size:
+            9.5pt; font-family: Consolas; color: black; background:
+            white; mso-highlight: white; mso-ansi-language: EN-US"
+            lang="EN-US">"</span><span style="font-size: 9.5pt;
+            font-family: Consolas; color: blue; background: white;
+            mso-highlight: white; mso-ansi-language: EN-US" lang="EN-US">
+            /&gt;</span><span style="font-size: 9.5pt; font-family:
+            Consolas; color: black; background: white; mso-highlight:
+            white; mso-ansi-language: EN-US" lang="EN-US"><o:p></o:p></span></p>
+        <p>
+        Change the value to "Simple" or "Detailed" to get trace
+        information written into the MIP log file.</p>
+        <h2 class="Heading2">Log File Locations</h2>
+        <p>XProtect Corporate Management Client:</p>
+        <p> <span style="font-family:'Courier New'; ">
+            %ProgramData%\Milestone\XProtect Corporate Management
+            Client\Logs\MIPtrace.Log</span></p>
+        <p>XProtect Enterprise Management Application:</p>
+        <p> <span style="font-family:'Courier New'; ">
+            %ProgramData%\Milestone\Milestone
+            Surveillance\MIPyyyyMMdd.log</span></p>
+        <p> XProtect Smart Client:</p>
+        <p> <span style="font-family:'Courier New'; ">
+            %ProgramData%\Milestone\MIPlog.txt</span></p>
+        <p>XProtect Event Server:</p>
+        <p> <span style="font-family:'Courier New'; ">
+            %ProgramData%\Milestone\XProtect Event
+            Server\logs\MIPLogs\MIPyyyy-MM-dd.log<br>
+            %ProgramData%\Milestone\XProtect Event
+            Server\logs\Cyyyy-MM-dd.log </span></p>
+        <p>&nbsp;XProtect Event Server comes with a log viewer, which
+          makes the job easier. Find the Manager (tray icon) for the
+          Event Server, right-click and find:</p>
+          <img src="../images/ES1.PNG" title="Event Server Manager menu"
+            alt="Event Server Manager menu" width="265" height="274">
+        <p>&nbsp;</p>
+        <p>Event Server viewer displaying a MIP Log:</p>
+          <img src="../images/ESdebug2.PNG" alt="Event Server viewer
+            display of MIP log" width="974" height="319">
+        
+        <h2 class="Heading2">Start Debugging from Visual Studio</h2>
+        <ol>
+          <li>Place the compiled DLLs in the folder that is loaded by
+            the application. You may want to make a copy statement in
+            the <em>post-build event command line</em> on the <em>Build-Events</em>
+            tab within Visual Studio (see note 1).</li>
+          <li>Create a plugin.def file and place it in the same folder.</li>
+          <li>Change Visual Studio project properties for <em>Debug</em></li>
+          <ul>
+            <li>Change the <em>Start external program</em> so that it
+              matches the application that should start (for the
+              XProtect Smart Client, it would be <em>Client.exe</em> in
+              the XProtect Smart Client install folder) (see note 2)
+            </li>
+          </ul>
+          <li>For starting services, add the command "-x" to the command
+            line. (Make sure the service is stopped before you start the
+            service exe file).</li>
+        </ol>
+        <h3 class="Heading3">Make a build event (note 1)
+        </h3>
+        <p>When you want to debug the plug-in running in the Smart
+          Client / Management Client / Event Server environment, it is
+          important to ensure the newest build is loaded. To ensure this,
+          it is recommended to make a “Post-build event command line”
+          that copies the dll files.<br>
+          xcopy /y "$(TargetPath)" "C:\Program
+          Files\Milestone\MIPPlugins\MIPPLugin1"</p>
+          <img src="../images/SC3.png" title="Post-build event"
+            alt="Properties - Build Events - Post-build event command
+            line" width="653" height="205">
+            <p>
+          Note that, for this to work, you must make sure the Smart Client
+          / Management Client / Event Server is stopped so that the file
+          is not locked, and for Visual Studio to copy to “Program Files”,
+          it must be run as administrator.</p>
+          <p>
+          The plugin.def could also be copied automatically like this,
+          but this file usually does not change, so you can just copy it
+          once, manually.</p>
+        
+        <h3 class="Heading3">Start the debugging (note 2)
+        </h3>
+        <p>If your plug-in is running in the Smart Client, you can
+          start debugging using the “Attach to Process” debug option in
+          Visual Studio. Attach to the Client.exe process. You can
+          make a break point in your code, and when it is hit, inspect the
+          variables, single-step etc. </p>
+          <p>
+          The drawback with this method is that, if what you want to debug
+          is happening during initialization or similar, then you might never
+          see it. It might have passed because you attach the debugger
+          at a later point in time.</p>
+          <p>
+          A better method is changing the properties of your project
+          like this:<br> Change the Start action to be “Start external
+          program” and point to the Client.exe.</p>
+          <img src="../images/SC4.png" title="Properties - Debug - Start
+            action" alt="Properties - Debug - Start action" width="794"
+            height="238">
+	  <p>&nbsp;</p>
+         <p>
+          Similar for Management Client plug-ins:</p>
+          <img src="../images/MCdebug2.PNG" title="Properties - Debug -
+            Start action" alt="Properties - Debug - Start action"
+            width="791" height="385">
+            <p>&nbsp;</p>
+            <p>
+          For an Event Server plug-in, you must stop the Event
+          Server service, and start it as a Windows application from
+          Visual Studio by supplying an "-x" command line parameter:</p>
+          <img src="../images/ESdebug3.PNG" title="start action"
+            alt="Properties - Debug- Start action and Start options"
+            width="791" height="338">
+
+        <h2 class="Heading2">Deploy and Install</h2>
+        <p>When you create a deployment project, the minimal set of
+          files to include are the two files represented in the
+          illustration below: </p>
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;<img
+            src="../images/MIPPluginFolder.PNG">
+          <p>
+          The DLL that you have developed and the DEF file that defines what
+          to load. These two files, and any additional files that you
+          may need, should be installed to the following folder: </p>
+          
+        <p> %PROGRAMFILES%\VideoOS\MIPPlugins\"your-plug-in-name"\ <br>
+          ( or %PROGRAMFILES%\Milestone\MIPPlugins\"your-plug-in-name"\
+          )<br>
+        </p>
+        <p>When located in this folder, the application loads the
+          plug-in and executes relevant classes if the EnvironmentType
+          matches the one that is defined in the plug-in definition. For
+          plug-ins used by the XProtect Smart Client, the installer must
+          be run on each computer where an XProtect Smart Client uses
+          the plug-in. </p>
+        <p><strong>Note: </strong>Re-start the Event Server
+          service, if the plug-in needs to execute with the Event
+          Server. For example, if the plug-in contains a specific background plug-in
+          for the Event Server or if the plug-in provides access to
+          items or devices to be used on the Smart Client Map and Alarm
+          overview.</p>
+        <h2 class="Heading2">Version Strategy</h2>
+        <p>The version of the MIP SDK and the version of the
+          installed XProtect VMS at a customer site will often be out of
+			sync, but it will work fine when:</p>
+         <ul>
+         	<li>The plug-in and the standalone applications always refer to
+          one or more of the files that starts with "VideoOS.Platform"</li>
+          <li>When you install a new plug-in on an older version of
+          XProtect VMS, replace the VideoOS.Platform.dll with the
+          newest from the MIP SDK.</li>
+         </ul>
+        
+      </div>
+    </div>
+  </body>
+</html>
